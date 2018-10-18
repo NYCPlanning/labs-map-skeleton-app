@@ -58,6 +58,7 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
+    "labs-ember-search": "^2.4.9",
     "mapbox-gl": "^0.48.0"
   }
 }

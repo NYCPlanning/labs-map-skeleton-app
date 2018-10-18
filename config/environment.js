@@ -18,6 +18,17 @@ module.exports = function(environment) {
       }
     },
 
+    'labs-search': {
+      host: 'https://search-api-staging.planninglabs.nyc',
+      route: 'search',
+      helpers: ['geosearch'],
+    },
+
+    'ember-mapbox-composer': {
+      host: 'https://layers-api-staging.planninglabs.nyc',
+      namespace: 'v1',
+    },
+
     'mapbox-gl': {
       accessToken: '',
       map: {
@@ -59,7 +70,11 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    // here you can enable a production-specific feature
+    ENV.host = 'https://layers-api.planninglabs.nyc';
+    ENV['mapbox-gl'].map.style = 'https://layers-api.planninglabs.nyc/v1/base/style.json';
+    ENV['labs-search'] = {
+      host: 'https://search-api.planninglabs.nyc',
+    };
   }
 
   if (environment === 'devlocal') {
