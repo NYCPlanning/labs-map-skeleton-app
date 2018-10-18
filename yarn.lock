@@ -2728,13 +2728,6 @@ ember-ajax@^3.0.0:
     ember-cli-babel "^6.16.0"
     najax "^1.0.3"
 
-ember-assign-polyfill@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/ember-assign-polyfill/-/ember-assign-polyfill-2.5.0.tgz#0dc7079addbdbad7984ba3f35d970cf07a73f704"
-  dependencies:
-    ember-cli-babel "^6.6.0"
-    ember-cli-version-checker "^2.0.0"
-
 ember-ast-helpers@0.3.5:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/ember-ast-helpers/-/ember-ast-helpers-0.3.5.tgz#db72afd9bc3de03759720ff7b03d4e3b2c7f2351"
