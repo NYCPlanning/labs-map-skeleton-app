@@ -5,34 +5,7 @@ import mapboxgl from 'mapbox-gl';
 export default class ApplicationController extends Controller {
   geocodedFeature = null;
 
-  highlightedParkSource = null;
-
-  searchedAddressSource = null;
-
   searchTerms = '';
-
-  highlightedStreetSource = null;
-
-  highlightedFeature = null;
-
-  highlightedFeatureLayer = {
-    type: 'line',
-    paint: {
-      'line-color': 'rgba(6, 43, 99, 0.6)',
-      'line-width': {
-        stops: [
-          [
-            10,
-            0.5,
-          ],
-          [
-            15,
-            8,
-          ],
-        ],
-      },
-    },
-  }
 
   geocodedLayer = {
     type: 'circle',
@@ -117,7 +90,7 @@ export default class ApplicationController extends Controller {
       }
     }
 
-      /* handle other search results --> choose from layer-group, this example is for waterfront access
+      /* handle other search results --> choose from layer-group, this example is for waterfront access)
       if (result.type === 'waterfront-park-name') {
         this.transitionToRoute('profiles.show', result.paws_id);
       }*/

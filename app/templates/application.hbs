@@ -31,7 +31,15 @@
     {{/labs-search}}
 
   <div class="map-container cell medium-auto large-order-2">
-    {{#labs-map id='map' as |map|}}
+    {{#labs-map
+      id='map'
+      initOptions=(hash
+        zoom=10
+        center=(array -73.96532400540775 40.709710016659386)
+        hash=true
+      )
+      mapLoaded=(action 'handleMapLoad') as |map|
+    }}
       {{map.labs-layers layerGroups=model.layerGroups}}
       {{#if geocodedFeature}}
         {{#map.source options=geocodedFeature as |source|}}
