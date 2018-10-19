@@ -6,10 +6,12 @@
   "license": "MIT",
   "author": "",
   "directories": {
-    "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NYCPlanning/labs-map-skeleton-app.git"
+  },
   "scripts": {
     "build": "ember build",
     "lint:js": "eslint .",
@@ -61,5 +63,11 @@
     "labs-ember-search": "^2.4.9",
     "mapbox-gl": "^0.48.0",
     "mustache": "^3.0.0"
-  }
+  },
+  "main": ".eslintrc.js",
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/NYCPlanning/labs-map-skeleton-app/issues"
+  },
+  "homepage": "https://github.com/NYCPlanning/labs-map-skeleton-app#readme"
 }
