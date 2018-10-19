@@ -14,8 +14,7 @@
     "build": "ember build",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "ember test",
-    "browserstack-connect": "ember browserstack:connect"
+    "test": "ember test"
   },
   "devDependencies": {
     "@ember-decorators/babel-transforms": "^2.0.0",
@@ -59,7 +58,6 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
-    "ember-cli-browserstack": "^0.0.6",
     "mapbox-gl": "^0.48.0"
   }
 }
