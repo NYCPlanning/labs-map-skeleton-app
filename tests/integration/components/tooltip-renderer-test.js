@@ -21,6 +21,6 @@ module('Integration | Component | tooltip-renderer', function(hooks) {
       {{/tooltip-renderer}}
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.equal(this.element.textContent.trim(), '');
   });
 });

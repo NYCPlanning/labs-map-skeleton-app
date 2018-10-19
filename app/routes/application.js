@@ -18,6 +18,7 @@ export default class ApplicationRoute extends Route {
        id: 'floodplain-efirm2007',
        visible: true,
        layers: [{
+         highlightable: false, 
          tooltipable: false,
        }]
       },
