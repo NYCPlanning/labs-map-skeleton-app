@@ -102,5 +102,5 @@ export default class ApplicationController extends Controller {
     // Turn on the Tax Lots layer group
     this.set('tax-lots', true);
   }
-  
+
 }
