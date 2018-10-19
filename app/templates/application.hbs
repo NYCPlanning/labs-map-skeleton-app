@@ -15,20 +15,22 @@
 
 <div class="site-main grid-x has-content-open">
 
-  {{#labs-search
-      searchPlaceholder='Search...'
-      onSelect=(action 'handleSearchSelect')
-      searchTerms=searchTerms
-      typeTitleLookup=(hash
-        lot='Addresses')
-      onClear=(action (mut geocodedFeature null))
-      class="search-container"
-      as |search|}}
-      {{#if (eq search.result.type 'lot')}}
-        {{fa-icon 'map-pin' fixedWidth=true}}
-      {{/if}}
-      <span class="dark-gray">{{search.result.label}}</span>
-    {{/labs-search}}
+  <div class="search-container">
+    {{#labs-search
+        searchPlaceholder='Search...'
+        onSelect=(action 'handleSearchSelect')
+        searchTerms=searchTerms
+        typeTitleLookup=(hash
+          lot='Addresses')
+        onClear=(action (mut geocodedFeature null))
+        as |search|}}
+        {{#if (eq search.result.type 'lot')}}
+          {{fa-icon 'map-pin' fixedWidth=true}}
+        {{/if}}
+        <span class="dark-gray">{{search.result.label}}</span>
+      {{/labs-search}}
+      {{bbl-lookup flyTo=(action 'flyTo')}}
+  </div>
 
   <div class="map-container cell medium-auto large-order-2">
     {{#labs-map

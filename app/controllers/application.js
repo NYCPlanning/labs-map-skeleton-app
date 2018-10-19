@@ -90,9 +90,17 @@ export default class ApplicationController extends Controller {
       }
     }
 
-      /* handle other search results --> choose from layer-group, this example is for waterfront access)
-      if (result.type === 'waterfront-park-name') {
-        this.transitionToRoute('profiles.show', result.paws_id);
-      }*/
+      // handle other search results --> choose from layer-group, this example is for waterfront access)
     }
+
+
+    @action
+  flyTo(center, zoom) {
+    // Fly to the lot
+    this.get('map').flyTo({ center, zoom });
+
+    // Turn on the Tax Lots layer group
+    this.set('tax-lots', true);
   }
+  
+}
