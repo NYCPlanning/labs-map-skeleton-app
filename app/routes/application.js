@@ -7,10 +7,29 @@ export default class ApplicationRoute extends Route {
   async model() {
     const layerGroups = await this.store.query('layer-group', {
       'layer-groups': [
-        { id: 'subway', visible: true },
-        { id: 'floodplain-efirm2007', visible: true },
-      ],
-    });
+        {
+        id: 'subway',
+        visible: true,
+        layers: [{
+          tooltipable: false,
+        }]
+       },
+       {
+       id: 'floodplain-efirm2007',
+       visible: true,
+       layers: [{
+         tooltipable: false,
+       }]
+      },
+        { id: 'historic-districts',
+        visible: true ,
+        layers: [{
+          tooltipable: true,
+          tooltipTemplate: 'HELLO',
+        }]
+      }
+    ],
+  });
 
     const exampleIcon = {
       "type": "rectangle",
