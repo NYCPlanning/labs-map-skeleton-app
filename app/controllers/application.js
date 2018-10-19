@@ -7,6 +7,7 @@ export default class ApplicationController extends Controller {
 
   searchTerms = '';
 
+  // layer that appears when user searches a location (geosearch)
   geocodedLayer = {
     type: 'circle',
     paint: {
@@ -90,7 +91,7 @@ export default class ApplicationController extends Controller {
       }
     }
 
-      // handle other search results --> choose from layer-group, this example is for waterfront access)
+      // handle other search results --> choose from layer-group for "search layer-group"
     }
 
 

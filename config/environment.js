@@ -21,7 +21,7 @@ module.exports = function(environment) {
     'labs-search': {
       host: 'https://search-api-staging.planninglabs.nyc',
       route: 'search',
-      helpers: ['geosearch'], // add other search-helpers here
+      helpers: ['geosearch'], // add other search-helpers here for "search layer-group"
     },
 
     'ember-mapbox-composer': {
