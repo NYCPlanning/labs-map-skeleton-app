@@ -72,6 +72,26 @@
           {{/labs-ui/layer-group-toggle}}
         {{/lookup-layer-group}}
 
+        {{#lookup-layer-group for='historic-districts' as |layerGroup|}}
+          {{#labs-ui/layer-group-toggle
+            label=layerGroup.model.legend.label
+            tooltip=layerGroup.model.legend.tooltip
+            icon=layerGroup.model.legend.icon
+            active=layerGroup.model.visible
+          }}
+          {{/labs-ui/layer-group-toggle}}
+        {{/lookup-layer-group}}
+
+        {{#lookup-layer-group for='floodplain-efirm2007' as |layerGroup|}}
+          {{#labs-ui/layer-group-toggle
+            label=layerGroup.model.legend.label
+            tooltip=layerGroup.model.legend.tooltip
+            icon=layerGroup.model.legend.icon
+            active=layerGroup.model.visible
+          }}
+          {{/labs-ui/layer-group-toggle}}
+        {{/lookup-layer-group}}
+
     {{/labs-ui/layer-groups-container}}
 
   </div>
