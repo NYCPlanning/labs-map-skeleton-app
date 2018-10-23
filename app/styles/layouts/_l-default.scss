@@ -5,7 +5,8 @@
 // Some elements need explicit sizes which are used to calculate the size of other components.
 $site-header-height: 6rem;
 $search-height: rem-calc(48);
-$search-width: 17rem;
+$search-width: 18rem;
+
 
 // .site-main contains everything except the header. On large screens, it fills the remaining height of the window.
 .site-main {
@@ -20,9 +21,11 @@ $search-width: 17rem;
 .search-container {
   position: relative;
   z-index: 3;
-  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
-  padding: rem-calc(9) rem-calc(6) rem-calc(6);
   width: 100%;
+  height: 5.25rem;
+  overflow: visible;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+
 
   // On medium screens, search is removed from the grid layout and positioned absolute at the top of the sidebar.
   @include breakpoint(medium) {
@@ -39,6 +42,8 @@ $search-width: 17rem;
 
   // On large screens, search and sidebar move to the left.
   @include breakpoint(large) {
+    position: fixed;
+    top: 6rem;
     right: auto;
     left: 0;
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1),
@@ -59,23 +64,29 @@ $search-width: 17rem;
   height: 100%;
 }
 
-.map-sidebar {
+.layer-menu {
+  background-color: $off-white;
   z-index: 2;
-  background-color: $white;
+  // min-height: calc(50vh - 8rem);
 
-  // On medium screens, the sidebar is set to match the height of the map minus search.
   @include breakpoint(medium) {
-    margin-top: $search-height;
-    height: calc(60vh - #{$search-height});
-    overflow-y: auto; // sidebar scrolls independently
-    box-shadow: -4px 0 0 0 rgba(0,0,0,0.1);
-    width: $search-width;
+    min-height: none;
+    max-height: 50vh;
+    height: calc(50vh - 5.25rem);
+    width: 15rem;
+    box-shadow: -4px 0 0 rgba(0,0,0,0.1);
+    overflow: scroll;
+    margin-top: 5.25rem;
   }
 
-  // On large screens, the sidebar is full-height
   @include breakpoint(large) {
-    height: calc(100% - #{$search-height});
-    box-shadow: 4px 0 0 0 rgba(0,0,0,0.1);
+    height: calc(100% - 5.25rem);
+    box-shadow: 2px 0 0 rgba(0,0,0,0.1);
+    // padding-bottom: 6.25rem;
+  }
+
+  @include breakpoint(xlarge) {
+    width: 18rem;
   }
 }
 
