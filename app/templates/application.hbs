@@ -86,9 +86,9 @@
           {{#labs-ui/layer-group-toggle
             label=layerGroup.model.legend.label
             tooltip=layerGroup.model.legend.tooltip
-            icon=layerGroup.model.legend.icon
             active=layerGroup.model.visible
           }}
+          {{labs-ui/legend-items items=layerGroup.model.legend.items}}
           {{/labs-ui/layer-group-toggle}}
         {{/lookup-layer-group}}
 
