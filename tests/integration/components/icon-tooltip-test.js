@@ -3,22 +3,22 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | lookup-layer-group', function(hooks) {
+module('Integration | Component | icon-tooltip', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`{{lookup-layer-group for='foo'}}`);
+    await render(hbs`{{icon-tooltip}}`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#lookup-layer-group for='foo'}}
+      {{#icon-tooltip}}
         template block text
-      {{/lookup-layer-group}}
+      {{/icon-tooltip}}
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');
