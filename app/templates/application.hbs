@@ -9,6 +9,7 @@
   {{#banner.nav}}
     <ul class="menu vertical medium-horizontal">
       <li>{{link-to 'About' 'about'}}</li>
+      <li>{{link-to 'Data' 'data'}}</li>
     </ul>
   {{/banner.nav}}
 {{/labs-ui/site-header}}
@@ -30,7 +31,7 @@
         <span class="dark-gray">{{search.result.label}}</span>
       {{/labs-search}}
 <!--component bbl-lookup-->
-      {{bbl-lookup flyTo=(action 'flyTo')}}
+      {{labs-bbl-lookup flyTo=(action 'flyTo')}}
   </div>
 
   <div class="map-container cell medium-auto large-order-2">
