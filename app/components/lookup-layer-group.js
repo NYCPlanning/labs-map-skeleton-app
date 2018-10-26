@@ -4,8 +4,7 @@ import { argument } from '@ember-decorators/argument';
 import { type } from '@ember-decorators/argument/type';
 import { required } from '@ember-decorators/argument/validation';
 
-// component that adds legend items to the legend associated with layer group
-// set the layer group in the template
+// component that adds items to the legend associated with layer group
 
 export default class LookupLayerGroupComponent extends Component {
   constructor(...args) {

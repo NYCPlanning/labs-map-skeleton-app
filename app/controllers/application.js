@@ -4,7 +4,6 @@ import mapboxgl from 'mapbox-gl';
 
 export default class ApplicationController extends Controller {
 
-  // this geocodedFeature will be set later when a user searches an address
   geocodedFeature = null;
 
   searchTerms = '';

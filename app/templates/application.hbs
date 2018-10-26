@@ -15,7 +15,7 @@
 {{/labs-ui/site-header}}
 
 <div class="site-main grid-x has-content-open">
-<!--labs-search pulls from labs-search-api-->
+<!--labs-search from labs-search-api and labs-ember-search-->
   <div class="search-container">
     {{#labs-search
         searchPlaceholder='Search...'
@@ -30,11 +30,12 @@
         {{/if}}
         <span class="dark-gray">{{search.result.label}}</span>
       {{/labs-search}}
-<!--component bbl-lookup-->
+<!--bbl-lookup from labs-ember-search, 'flyTo' will only work if tax lot layer is on map-->
       {{labs-bbl-lookup flyTo=(action 'flyTo')}}
   </div>
 
   <div class="map-container cell medium-auto large-order-2">
+  <!--labs-map from ember-mapbox-composer-->
     {{#labs-map
       id='map'
       initOptions=(hash
@@ -44,6 +45,7 @@
       )
       mapLoaded=(action 'handleMapLoad') as |map|
     }}
+    <!--labs-layers from ember-mapbox-composer-->
       {{#map.labs-layers
         layerGroups=model.layerGroups
         as |layers|}}
@@ -52,7 +54,7 @@
           {{/layers.tooltip}}
       {{/map.labs-layers}}
 
-<!--geocodedFeature that appears when a user selects and "address" search result-->
+<!--geocodedFeature that appears when a user selects "address" search result-->
       {{#if geocodedFeature}}
         {{#map.source options=geocodedFeature as |source|}}
           {{source.layer layer=geocodedLayer}}
