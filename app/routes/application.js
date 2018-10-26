@@ -4,6 +4,8 @@ import { next } from '@ember/runloop';
 
 export default class ApplicationRoute extends Route {
 
+  // set which layer groups appear on the map
+  // here you can override defaults (e.g. tooltipable, tooltipTemplate, clickable, and highlightable)
   async model() {
     const layerGroups = await this.store.query('layer-group', {
       'layer-groups': [
@@ -18,7 +20,7 @@ export default class ApplicationRoute extends Route {
        id: 'floodplain-efirm2007',
        visible: true,
        layers: [{
-         highlightable: false, 
+         highlightable: false,
          tooltipable: false,
        }]
       },
@@ -26,24 +28,14 @@ export default class ApplicationRoute extends Route {
         visible: true ,
         layers: [{
           tooltipable: true,
-          tooltipTemplate: 'HELLO',
         }]
       }
     ],
   });
 
-    const exampleIcon = {
-      "type": "rectangle",
-      "layers": [{
-        "fill":"rgba(230, 50, 50, 0.2)",
-        "stroke":"rgba(230, 50, 50, 0.6)",
-        "stroke-dasharray":"1"
-      }]
-    };
 
     return {
       layerGroups,
-      exampleIcon,
     }
   }
 

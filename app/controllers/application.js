@@ -3,6 +3,8 @@ import { action } from '@ember-decorators/object';
 import mapboxgl from 'mapbox-gl';
 
 export default class ApplicationController extends Controller {
+
+  // this geocodedFeature will be set later when a user searches an address
   geocodedFeature = null;
 
   searchTerms = '';
@@ -62,6 +64,7 @@ export default class ApplicationController extends Controller {
     map.setPaintProperty('water', 'fill-color', '#ccddee');
 }
 
+  // action for when a user clicks on a search result from drop down menu
   @action
   handleSearchSelect(result) {
     const mapInstance = this.get('mapInstance');
@@ -83,6 +86,7 @@ export default class ApplicationController extends Controller {
       //   this.geoLocateControl._onClickGeolocate();
       // }
 
+      // map will center and zoom on the selected search result's location
       if (mapInstance) {
         mapInstance.flyTo({
           center,
@@ -91,10 +95,10 @@ export default class ApplicationController extends Controller {
       }
     }
 
-      // handle other search results --> choose from layer-group for "search layer-group"
+      // this is where you will handle other search results --> choose from layer-groups for "layer-group search"
     }
 
-
+    // this action is used for bbl-lookup --> center and zoom on specified tax lot
     @action
   flyTo(center, zoom) {
     // Fly to the lot

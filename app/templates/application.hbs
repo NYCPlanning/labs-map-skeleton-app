@@ -14,7 +14,7 @@
 {{/labs-ui/site-header}}
 
 <div class="site-main grid-x has-content-open">
-
+<!--labs-search pulls from labs-search-api-->
   <div class="search-container">
     {{#labs-search
         searchPlaceholder='Search...'
@@ -29,6 +29,7 @@
         {{/if}}
         <span class="dark-gray">{{search.result.label}}</span>
       {{/labs-search}}
+<!--component bbl-lookup-->
       {{bbl-lookup flyTo=(action 'flyTo')}}
   </div>
 
@@ -42,7 +43,6 @@
       )
       mapLoaded=(action 'handleMapLoad') as |map|
     }}
-
       {{#map.labs-layers
         layerGroups=model.layerGroups
         as |layers|}}
@@ -51,6 +51,7 @@
           {{/layers.tooltip}}
       {{/map.labs-layers}}
 
+<!--geocodedFeature that appears when a user selects and "address" search result-->
       {{#if geocodedFeature}}
         {{#map.source options=geocodedFeature as |source|}}
           {{source.layer layer=geocodedLayer}}
@@ -62,6 +63,7 @@
   <div class="layer-menu cell large-order-1">
     {{#labs-ui/layer-groups-container title='LayerGroup Title'
         mapIsLoading=loadStateTask.isRunning}}
+<!--component lookup-layer-group-->
         {{#lookup-layer-group for='subway' as |layerGroup|}}
           {{#labs-ui/layer-group-toggle
             label=layerGroup.model.legend.label

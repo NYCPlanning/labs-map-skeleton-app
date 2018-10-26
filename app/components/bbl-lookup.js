@@ -3,6 +3,9 @@ import { argument } from '@ember-decorators/argument';
 import { action } from '@ember-decorators/object';
 import carto from '../utils/carto';
 
+// usually accompanies the search container for applications that include tax lots layer groups
+// allows user to search for bbl's by selecting from a borough drop-down menu, and filling in a form for lot and block separately
+
 export default class BBLLookupComponent extends Component {
   classNames=['bbl-lookup hide-for-print'];
 

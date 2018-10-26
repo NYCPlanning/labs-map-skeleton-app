@@ -15,7 +15,7 @@
 @import 'labs-ui/all-modules';
 
 //
-// Custom App Modules
+// Custom App Modules (modules must have their own file under styles/modules AND be imported here)
 // --------------------------------------------------
 @import 'layouts/_l-default';
 @import 'modules/_m-bbl-lookup';
