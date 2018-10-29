@@ -3,8 +3,9 @@ import { action } from '@ember-decorators/object';
 import mapboxgl from 'mapbox-gl';
 
 export default class ApplicationController extends Controller {
-
   geocodedFeature = null;
+
+  sidebarIsClosed = false;
 
   searchTerms = '';
 
@@ -61,7 +62,7 @@ export default class ApplicationController extends Controller {
 
     // Make the water blue
     map.setPaintProperty('water', 'fill-color', '#ccddee');
-}
+  }
 
   // action for when a user clicks on a search result from drop down menu
   @action
@@ -106,5 +107,4 @@ export default class ApplicationController extends Controller {
     // Turn on the Tax Lots layer group
     this.set('tax-lots', true);
   }
-
 }

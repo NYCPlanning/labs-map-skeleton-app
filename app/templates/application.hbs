@@ -14,28 +14,30 @@
   {{/banner.nav}}
 {{/labs-ui/site-header}}
 
+{{link-to '' 'index' class="index-active-detector {{if sidebarIsClosed 'sidebar-is-closed' }}"}}
 <div class="site-main grid-x has-content-open">
-<!--labs-search from labs-search-api and labs-ember-search-->
+  <!--labs-search from labs-search-api and labs-ember-search-->
   <div class="search-container">
     {{#labs-search
-        searchPlaceholder='Search...'
-        onSelect=(action 'handleSearchSelect')
-        searchTerms=searchTerms
-        typeTitleLookup=(hash
-          lot='Addresses')
-        onClear=(action (mut geocodedFeature null))
-        as |search|}}
-        {{#if (eq search.result.type 'lot')}}
-          {{fa-icon 'map-pin' fixedWidth=true}}
-        {{/if}}
-        <span class="dark-gray">{{search.result.label}}</span>
-      {{/labs-search}}
-<!--bbl-lookup from labs-ember-search, 'flyTo' will only work if tax lot layer is on map-->
-      {{labs-bbl-lookup flyTo=(action 'flyTo')}}
+      searchPlaceholder='Search...'
+      onSelect=(action 'handleSearchSelect')
+      searchTerms=searchTerms
+      typeTitleLookup=(hash
+        lot='Addresses')
+      onClear=(action (mut geocodedFeature null))
+      as |search|
+    }}
+      {{#if (eq search.result.type 'lot')}}
+        {{fa-icon 'map-pin' fixedWidth=true}}
+      {{/if}}
+      <span class="dark-gray">{{search.result.label}}</span>
+    {{/labs-search}}
+    <!--bbl-lookup from labs-ember-search, 'flyTo' will only work if tax lot layer is on map-->
+    {{labs-bbl-lookup flyTo=(action 'flyTo')}}
   </div>
 
   <div class="map-container cell medium-auto large-order-2">
-  <!--labs-map from ember-mapbox-composer-->
+    <!--labs-map from ember-mapbox-composer-->
     {{#labs-map
       id='map'
       initOptions=(hash
@@ -45,7 +47,7 @@
       )
       mapLoaded=(action 'handleMapLoad') as |map|
     }}
-    <!--labs-layers from ember-mapbox-composer-->
+      <!--labs-layers from ember-mapbox-composer-->
       {{#map.labs-layers
         layerGroups=model.layerGroups
         as |layers|}}
@@ -54,7 +56,7 @@
           {{/layers.tooltip}}
       {{/map.labs-layers}}
 
-<!--geocodedFeature that appears when a user selects "address" search result-->
+      <!--geocodedFeature that appears when a user selects "address" search result-->
       {{#if geocodedFeature}}
         {{#map.source options=geocodedFeature as |source|}}
           {{source.layer layer=geocodedLayer}}
@@ -63,10 +65,16 @@
     {{/labs-map}}
   </div>
 
-  <div class="layer-menu cell large-order-1">
-    {{#labs-ui/layer-groups-container title='LayerGroup Title'
-        mapIsLoading=loadStateTask.isRunning}}
-<!--component lookup-layer-group-->
+  <div class="map-sidebar cell large-order-1">
+    <button {{action (mut sidebarIsClosed) (not sidebarIsClosed)}} class="map-sidebar-toggle button tiny gray hide-for-medium {{unless sidebarIsClosed 'open'}}">
+      {{fa-icon (if sidebarIsClosed 'caret-down' 'caret-up')}}
+      Map Legend
+    </button>
+    <div class="{{if sidebarIsClosed 'show-for-medium'}}">
+      {{#labs-ui/layer-groups-container title='LayerGroup Title'
+          mapIsLoading=loadStateTask.isRunning
+      }}
+        <!--component lookup-layer-group-->
         {{#lookup-layer-group for='subway' as |layerGroup|}}
           {{#labs-ui/layer-group-toggle
             label=layerGroup.model.legend.label
@@ -96,9 +104,8 @@
           {{labs-ui/legend-items items=layerGroup.model.legend.items}}
           {{/labs-ui/layer-group-toggle}}
         {{/lookup-layer-group}}
-
-    {{/labs-ui/layer-groups-container}}
-
+      {{/labs-ui/layer-groups-container}}
+    </div>
   </div>
 
   {{outlet}}
