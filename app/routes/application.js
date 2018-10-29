@@ -4,26 +4,38 @@ import { next } from '@ember/runloop';
 
 export default class ApplicationRoute extends Route {
 
+  // set which layer groups appear on the map
+  // here you can override defaults (e.g. tooltipable, tooltipTemplate, clickable, and highlightable)
   async model() {
     const layerGroups = await this.store.query('layer-group', {
       'layer-groups': [
-        { id: 'subway', visible: true },
-        { id: 'floodplain-efirm2007', visible: true },
-      ],
-    });
+        {
+        id: 'subway',
+        visible: true,
+        layers: [{
+          tooltipable: false,
+        }]
+       },
+       {
+       id: 'floodplain-efirm2007',
+       visible: true,
+       layers: [{
+         highlightable: false,
+         tooltipable: false,
+       }]
+      },
+        { id: 'historic-districts',
+        visible: true ,
+        layers: [{
+          tooltipable: true,
+        }]
+      }
+    ],
+  });
 
-    const exampleIcon = {
-      "type": "rectangle",
-      "layers": [{
-        "fill":"rgba(230, 50, 50, 0.2)",
-        "stroke":"rgba(230, 50, 50, 0.6)",
-        "stroke-dasharray":"1"
-      }]
-    };
 
     return {
       layerGroups,
-      exampleIcon,
     }
   }
 

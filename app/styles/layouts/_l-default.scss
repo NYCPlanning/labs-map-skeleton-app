@@ -4,8 +4,9 @@
 
 // Some elements need explicit sizes which are used to calculate the size of other components.
 $site-header-height: 6rem;
-$search-height: 3.25rem;
-$search-width: 17rem;
+$search-height: rem-calc(75);
+$map-sidebar-width: 17rem;
+
 
 // .site-main contains everything except the header. On large screens, it fills the remaining height of the window.
 .site-main {
@@ -21,14 +22,15 @@ $search-width: 17rem;
   position: relative;
   z-index: 3;
   box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
-  padding: 0.5rem 0.25rem 0.25rem;
+  padding: rem-calc(9) rem-calc(6) rem-calc(6);
+  width: 100%;
 
   // On medium screens, search is removed from the grid layout and positioned absolute at the top of the sidebar.
   @include breakpoint(medium) {
     position: absolute;
     top: 0;
     right: 0;
-    width: $search-width;
+    width: $map-sidebar-width;
     height: $search-height; // subtracted from sidebar height
     overflow: visible; // search results can overflow container
     background-color: $off-white;
@@ -45,33 +47,12 @@ $search-width: 17rem;
   }
 }
 
-.search { margin: 0; }
-
-.search-results {
-  display: none;
-  margin: 0;
+.map-container {
+  height: 50vh;
 
   @include breakpoint(medium) {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    min-width: 100%;
-    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+    height: 60vh;
   }
-
-  li {
-    border-top: 1px solid $light-gray;
-    padding: 0.25rem;
-  }
-}
-
-.search:focus + .search-results {
-  display: block;
-  background-color: $white;
-}
-
-.map-container {
-  height: 60vh;
 
   @include breakpoint(large) {
     height: 100%;
@@ -93,13 +74,22 @@ $search-width: 17rem;
     height: calc(60vh - #{$search-height});
     overflow-y: auto; // sidebar scrolls independently
     box-shadow: -4px 0 0 0 rgba(0,0,0,0.1);
-    width: $search-width;
+    width: $map-sidebar-width;
   }
 
   // On large screens, the sidebar is full-height
   @include breakpoint(large) {
     height: calc(100% - #{$search-height});
     box-shadow: 4px 0 0 0 rgba(0,0,0,0.1);
+  }
+}
+
+.map-sidebar-toggle {
+  margin: rem-calc(10) rem-calc(10) rem-calc(12);
+  width: calc(100% - #{rem-calc(20)});
+
+  &.open {
+    margin-bottom: rem-calc(5);
   }
 }
 
@@ -110,7 +100,7 @@ $search-width: 17rem;
   box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.1);
   background-color: $white;
   text-align: right;
-  padding: 1rem 1rem 0;
+  padding: 0 0.5rem 0.25rem;
   margin-bottom: -1rem;
 
   @include breakpoint(large) {
@@ -160,11 +150,9 @@ $search-width: 17rem;
 }
 
 // On medium screens, if the content area is not open, make the map and sidebar full-height.
-@include breakpoint(medium) {
-  .site-main:not(.has-content-open) {
-    .map-container,
-    .sidebar {
-      height: calc(100vh - #{$site-header-height});
-    }
+.index-active-detector.active + .site-main {
+  @include breakpoint(medium) {
+    .map-container { height: calc(100vh - #{$site-header-height}); }
+    .map-sidebar { height: calc(100vh - #{$site-header-height} - #{$search-height}); }
   }
 }

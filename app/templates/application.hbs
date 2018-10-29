@@ -9,39 +9,103 @@
   {{#banner.nav}}
     <ul class="menu vertical medium-horizontal">
       <li>{{link-to 'About' 'about'}}</li>
+      <li>{{link-to 'Data' 'data'}}</li>
     </ul>
   {{/banner.nav}}
 {{/labs-ui/site-header}}
 
+{{link-to '' 'index' class="index-active-detector {{if sidebarIsClosed 'sidebar-is-closed' }}"}}
 <div class="site-main grid-x has-content-open">
-
-  <div class="search-container cell">
-    <input type="text" placeholder="Search..." class="search" />
-    <ul class="search-results no-bullet">
-      <li>Search Result 1</li>
-      <li>Search Result 2</li>
-      <li>Search Result 3</li>
-    </ul>
+  <!--labs-search from labs-search-api and labs-ember-search-->
+  <div class="search-container">
+    {{#labs-search
+      searchPlaceholder='Search...'
+      onSelect=(action 'handleSearchSelect')
+      searchTerms=searchTerms
+      typeTitleLookup=(hash
+        lot='Addresses')
+      onClear=(action (mut geocodedFeature null))
+      as |search|
+    }}
+      {{#if (eq search.result.type 'lot')}}
+        {{fa-icon 'map-pin' fixedWidth=true}}
+      {{/if}}
+      <span class="dark-gray">{{search.result.label}}</span>
+    {{/labs-search}}
+    <!--bbl-lookup from labs-ember-search, 'flyTo' will only work if tax lot layer is on map-->
+    {{labs-bbl-lookup flyTo=(action 'flyTo')}}
   </div>
 
   <div class="map-container cell medium-auto large-order-2">
-    {{#labs-map id='map' as |map|}}
-      {{map.labs-layers layerGroups=model.layerGroups}}
+    <!--labs-map from ember-mapbox-composer-->
+    {{#labs-map
+      id='map'
+      initOptions=(hash
+        zoom=10
+        center=(array -73.96532400540775 40.709710016659386)
+        hash=true
+      )
+      mapLoaded=(action 'handleMapLoad') as |map|
+    }}
+      <!--labs-layers from ember-mapbox-composer-->
+      {{#map.labs-layers
+        layerGroups=model.layerGroups
+        as |layers|}}
+          {{#layers.tooltip as |tooltip|}}
+            {{tooltip-renderer feature=tooltip.feature template=tooltip.layer.tooltipTemplate}}
+          {{/layers.tooltip}}
+      {{/map.labs-layers}}
+
+      <!--geocodedFeature that appears when a user selects "address" search result-->
+      {{#if geocodedFeature}}
+        {{#map.source options=geocodedFeature as |source|}}
+          {{source.layer layer=geocodedLayer}}
+        {{/map.source}}
+      {{/if}}
     {{/labs-map}}
   </div>
 
   <div class="map-sidebar cell large-order-1">
-    {{#labs-ui/layer-groups-container title='Layer Groups Container Title'}}
-
-      {{#labs-ui/layer-group-toggle
-        label='Layer Group Label'
-        tooltip='This is the layer group tooltip'
-        icon=model.exampleIcon
-        active=true
+    <button {{action (mut sidebarIsClosed) (not sidebarIsClosed)}} class="map-sidebar-toggle button tiny gray hide-for-medium {{unless sidebarIsClosed 'open'}}">
+      {{fa-icon (if sidebarIsClosed 'caret-down' 'caret-up')}}
+      Map Legend
+    </button>
+    <div class="{{if sidebarIsClosed 'show-for-medium'}}">
+      {{#labs-ui/layer-groups-container title='LayerGroup Title'
+          mapIsLoading=loadStateTask.isRunning
       }}
-      {{/labs-ui/layer-group-toggle}}
+        <!--component lookup-layer-group-->
+        {{#lookup-layer-group for='subway' as |layerGroup|}}
+          {{#labs-ui/layer-group-toggle
+            label=layerGroup.model.legend.label
+            tooltip=layerGroup.model.legend.tooltip
+            icon=layerGroup.model.legend.icon
+            active=layerGroup.model.visible
+          }}
+          {{/labs-ui/layer-group-toggle}}
+        {{/lookup-layer-group}}
 
-    {{/labs-ui/layer-groups-container}}
+        {{#lookup-layer-group for='historic-districts' as |layerGroup|}}
+          {{#labs-ui/layer-group-toggle
+            label=layerGroup.model.legend.label
+            tooltip=layerGroup.model.legend.tooltip
+            icon=layerGroup.model.legend.icon
+            active=layerGroup.model.visible
+          }}
+          {{/labs-ui/layer-group-toggle}}
+        {{/lookup-layer-group}}
+
+        {{#lookup-layer-group for='floodplain-efirm2007' as |layerGroup|}}
+          {{#labs-ui/layer-group-toggle
+            label=layerGroup.model.legend.label
+            tooltip=layerGroup.model.legend.tooltip
+            active=layerGroup.model.visible
+          }}
+          {{labs-ui/legend-items items=layerGroup.model.legend.items}}
+          {{/labs-ui/layer-group-toggle}}
+        {{/lookup-layer-group}}
+      {{/labs-ui/layer-groups-container}}
+    </div>
   </div>
 
   {{outlet}}

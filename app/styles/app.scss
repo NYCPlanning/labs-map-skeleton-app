@@ -15,6 +15,13 @@
 @import 'labs-ui/all-modules';
 
 //
-// Custom App Modules
+// Custom App Modules (modules must have their own file under styles/modules AND be imported here)
 // --------------------------------------------------
 @import 'layouts/_l-default';
+@import 'modules/_m-bbl-lookup';
+@import 'modules/_m-maps';
+@import 'modules/_m-search';
+@import 'modules/_m-map-tooltips';
+@import 'modules/_m-tooltipster';
+//
+@import "ember-power-select";
